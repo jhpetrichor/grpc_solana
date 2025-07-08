@@ -1,9 +1,4 @@
-use std::{collections::HashMap, sync::LazyLock};
-
 use log::debug;
-use yellowstone_grpc_proto::geyser::{
-    CommitmentLevel, SubscribeRequest, SubscribeRequestFilterTransactions};
-
 use crate::grpc::YellowstoneGrpc;
 
 mod grpc;
