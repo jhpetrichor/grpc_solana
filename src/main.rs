@@ -1,10 +1,9 @@
 use crate::grpc::YellowstoneGrpc;
 
-mod account;
+mod common;
 mod grpc;
 mod handle;
 mod model;
-mod common;
 
 #[allow(unused)]
 // mod test;
@@ -15,12 +14,6 @@ const PROGRAM_ID3: &str = "BVdVonejnHwKAVFKx1YpQaBc8t225hFuzjns5ZMEq3Pp";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // dotenv::dotenv().ok();
-    // pretty_env_logger::init();
-
-    // let url = std::env::var("YELLOWSTONE_GRPC_URL").expect("YELLOWSTONE_GRPC_UTL must be set");
-
-    // test(url).await
     dotenv::dotenv().ok();
     pretty_env_logger::init();
 
@@ -38,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for program_id in program_ids {
         let client = client.clone();
         tokio::spawn(async move {
-            if let Err(e) = client.subscribe_account(program_id.to_string()).await {
+            if let Err(e) = client.subscribe_price().await {
                 log::error!("Error subscribing to program {}: {:?}", program_id, e);
             }
         });
